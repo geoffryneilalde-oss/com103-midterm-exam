@@ -7,7 +7,6 @@ task_types = [
 ]
 task_hours = [6, 3, 2, 2, 2]
 
-# --- INPUT WITH VALIDATION (No spaces allowed) ---
 while True:
     project_title = input("Project title: ").strip()
     if project_title != "":
@@ -34,48 +33,49 @@ for slot in range(4):
     print()
     print(f"--- TASK {slot + 1} ---")
     
-    # Validation for Task Number (prevents crash if they type letters/spaces)
     while True:
         task_num_input = input("Task number (0 to skip): ").strip()
         if task_num_input == "":
-            print("Error: Please enter a number.\n")
+            print("Error: Input cannot be empty.\n")
             continue
-        try:
+            
+        if task_num_input.isdigit():
             task_num = int(task_num_input)
-            break # Valid number, exit the loop
-        except ValueError:
+            
+            if 0 <= task_num <= 5:
+                break # Valid! Exit the loop
+            else:
+                print("Error: Invalid task number. Please enter a number from 1 to 5 (or 0 to skip).\n")
+        else:
             print("Error: That's not a valid number.\n")
 
     if task_num == 0:
         continue
 
-    if 1 <= task_num <= 5:
-        # Validation for Member Name
-        while True:
-            member_name = input("Member name: ").strip()
-            if member_name != "":
-                break
-            print("Error: Input cannot be empty or just spaces. Please try again.\n")
-            
-        # Validation for Status (forces them to type exactly done or pending)
-        while True:
-            task_status = input("Status (done/pending): ").strip().lower()
-            if task_status == "done" or task_status == "pending":
-                break
-            print("Error: Please type exactly 'done' or 'pending'.\n")
+    while True:
+        member_name = input("Member name: ").strip()
+        if member_name != "":
+            break
+        print("Error: Input cannot be empty or just spaces. Please try again.\n")
+        
+    while True:
+        task_status = input("Status (done/pending): ").strip().lower()
+        if task_status == "done" or task_status == "pending":
+            break
+        print("Error: Please type exactly 'done' or 'pending'.\n")
 
-        if task_status == "done":
-            points = 2
-        else:
-            points = 1
+    if task_status == "done":
+        points = 2
+    else:
+        points = 1
 
-        assignments.append({
-            "task_name": task_types[task_num - 1],
-            "task_hours": task_hours[task_num - 1],
-            "member": member_name,
-            "status": task_status,
-            "points": points
-        })
+    assignments.append({
+        "task_name": task_types[task_num - 1],
+        "task_hours": task_hours[task_num - 1],
+        "member": member_name,
+        "status": task_status,
+        "points": points
+    })
 
 total_earned = sum(task["points"] for task in assignments)
 total_assigned = len(assignments)
