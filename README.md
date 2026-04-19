@@ -1,1 +1,97 @@
-# com103-midterm-exam
+task_types = [
+    "Program Logic / Coding",
+    "UI / Output Formatting",
+    "Testing & Debugging",
+    "Documentation / README",
+    "Presentation Slides"
+]
+task_hours = [6, 3, 2, 2, 2]
+
+project_title = input("Project title: ")
+group_name = input("Group name: ")
+
+print()
+print("==========================================")
+print("COM 103 PROJECT -- TASK TYPES")
+print("==========================================")
+for i in range(5):
+    print(f"{i + 1}. {task_types[i]} [{task_hours[i]}h]")
+print("==========================================")
+
+assignments = []
+
+for slot in range(4):
+    print()
+    print(f"--- TASK {slot + 1} ---")
+    task_num = int(input("Task number (0 to skip): "))
+
+    if task_num == 0:
+        continue
+
+    if 1 <= task_num <= 5:
+        member_name = input("Member name: ")
+        task_status = input("Status (done/pending): ")
+
+        if task_status == "done":
+            points = 2
+        else:
+            points = 1
+
+        assignments.append({
+            "task_name": task_types[task_num - 1],
+            "task_hours": task_hours[task_num - 1],
+            "member": member_name,
+            "status": task_status,
+            "points": points
+        })
+total_earned = sum(task["points"] for task in assignments)
+total_assigned = len(assignments)
+max_pos = 2 * total_assigned
+
+if max_pos > 0:
+    progress = int((total_earned / max_pos) * 100)
+else:
+    progress = 0
+
+if progress >= 75:
+    project_status = "PROJECT READY!"
+elif progress >= 50:
+    project_status = "ON TRACK."
+else:
+    project_status = "NEEDS MORE WORK!"
+
+print()
+print("================================================")
+print(f"{project_title} -- TASK BOARD")
+print("================================================")
+print(f"Project : {project_title}")
+print(f"Group : {group_name}")
+print("------------------------------------------------")
+
+for idx, task in enumerate(assignments, start=1):
+    print(f"[{idx}] {task['task_name']} [{task['task_hours']}h]")
+    print(f"Assigned to : {task['member']}")
+    print(f"Status : {task['status']}")
+    print(f"Points : {task['points']} / 2")
+    print()
+
+print("------------------------------------------------")
+print(f"Points Earned : {total_earned} / {max_pos}")
+print(f"Progress : {progress}%")
+print(f"Project Status : {project_status}")
+print("================================================")
+
+print()
+if total_assigned > 0:
+    member_Final_list = [f"{task['member']} ({task['status']}): {task['points']}" for task in assignments]
+    member_Final_str = ", ".join(member_Final_list)
+    
+    if progress >= 75:
+        threshold_text = f"{progress} ≥ 75 → {project_status}"
+    elif progress >= 50:
+        threshold_text = f"{progress} ≥ 50 → {project_status}"
+    else:
+        threshold_text = f"{progress} < 50 → {project_status}"
+    print(f"Done task = 2 pts, pending task = 1 pt. {member_Final_str}. Total earned = {total_earned}. Max possible = 2 × {total_assigned} assigned tasks = {max_pos}. Progress = {total_earned}/{max_pos} × 100 = {progress} (whole number). {threshold_text}")
+else:
+    print("No tasks were assigned.")
