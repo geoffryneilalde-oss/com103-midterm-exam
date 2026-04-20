@@ -27,13 +27,11 @@ assignments = []
 for slot in range(4):
     print()
     print(f"--- TASK {slot + 1} ---")
-    
     while True:
         task_num_input = input("Task number (0 to skip): ").strip()
         if task_num_input == "":
             print("Error: Input cannot be empty.\n")
             continue
-            
         if task_num_input.isdigit():
             task_num = int(task_num_input)
             
@@ -43,7 +41,6 @@ for slot in range(4):
                 print("Error: Invalid task number. Please enter a number from 1 to 5 (or 0 to skip).\n")
         else:
             print("Error: That's not a valid number.\n")
-
     if task_num == 0:
         continue
 
@@ -57,7 +54,6 @@ for slot in range(4):
         if task_status == "done" or task_status == "pending":
             break
         print("Error: Please type exactly 'done' or 'pending'.\n")
-
     if task_status == "done":
         points = 2
     else:
@@ -72,19 +68,16 @@ for slot in range(4):
 total_earned = sum(task["points"] for task in assignments)
 total_assigned = len(assignments)
 max_pos = 2 * total_assigned
-
 if max_pos > 0:
     progress = int((total_earned / max_pos) * 100)
 else:
     progress = 0
-
 if progress >= 75:
     project_status = "PROJECT READY!"
 elif progress >= 50:
     project_status = "ON TRACK."
 else:
     project_status = "NEEDS MORE WORK!"
-
 print()
 print("================================================")
 print(f"{project_title} -- TASK BOARD")
@@ -92,7 +85,6 @@ print("================================================")
 print(f"Project : {project_title}")
 print(f"Group : {group_name}")
 print("------------------------------------------------")
-
 for idx, task in enumerate(assignments, start=1):
     print(f"[{idx}] {task['task_name']} [{task['task_hours']}h]")
     print(f"Assigned to : {task['member']}")
@@ -118,5 +110,4 @@ if total_assigned > 0:
     print(f"Done task = 2 pts, pending task = 1 pt. {member_Final_str}. Total earned = {total_earned}. Max possible = 2 × {total_assigned} assigned tasks = {max_pos}. Progress = {total_earned}/{max_pos} × 100 = {progress} (whole number). {threshold_text}")
 else:
     print("No tasks were assigned.")
-    
     
