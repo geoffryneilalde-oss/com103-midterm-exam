@@ -6,19 +6,16 @@ task_types = [
     "Presentation Slides"
 ]
 task_hours = [6, 3, 2, 2, 2]
-
 while True:
     project_title = input("Project title: ").strip()
     if project_title != "":
         break
     print("Error: Input cannot be empty or just spaces. Please try again.\n")
-
 while True:
     group_name = input("Group name: ").strip()
     if group_name != "":
         break
     print("Error: Input cannot be empty or just spaces. Please try again.\n")
-
 print()
 print("==========================================")
 print("COM 103 PROJECT -- TASK TYPES")
@@ -26,9 +23,7 @@ print("==========================================")
 for i in range(5):
     print(f"{i + 1}. {task_types[i]} [{task_hours[i]}h]")
 print("==========================================")
-
 assignments = []
-
 for slot in range(4):
     print()
     print(f"--- TASK {slot + 1} ---")
@@ -57,7 +52,6 @@ for slot in range(4):
         if member_name != "":
             break
         print("Error: Input cannot be empty or just spaces. Please try again.\n")
-        
     while True:
         task_status = input("Status (done/pending): ").strip().lower()
         if task_status == "done" or task_status == "pending":
@@ -68,7 +62,6 @@ for slot in range(4):
         points = 2
     else:
         points = 1
-
     assignments.append({
         "task_name": task_types[task_num - 1],
         "task_hours": task_hours[task_num - 1],
@@ -76,7 +69,6 @@ for slot in range(4):
         "status": task_status,
         "points": points
     })
-
 total_earned = sum(task["points"] for task in assignments)
 total_assigned = len(assignments)
 max_pos = 2 * total_assigned
@@ -107,13 +99,11 @@ for idx, task in enumerate(assignments, start=1):
     print(f"Status : {task['status']}")
     print(f"Points : {task['points']} / 2")
     print()
-
 print("------------------------------------------------")
 print(f"Points Earned : {total_earned} / {max_pos}")
 print(f"Progress : {progress}%")
 print(f"Project Status : {project_status}")
 print("================================================")
-
 print()
 if total_assigned > 0:
     member_Final_list = [f"{task['member']} ({task['status']}): {task['points']}" for task in assignments]
