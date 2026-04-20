@@ -22,3 +22,10 @@ Open the folder containing the files.
 Open your terminal, command prompt, or VS Code.
 Run the program by executing the following command:
 python midterm_solution.py
+
+
+
+
+
+
+AUTHOR: ALDE, GEOFFRY NEIL P. BSIT 1C 04/20/26
